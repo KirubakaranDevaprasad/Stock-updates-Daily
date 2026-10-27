@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ripple Radar</title>
+<title>Kiru's Ripple Radar</title>
 <meta name="description" content="Daily stock radar: US stocks sorted into $1–10, $10–50 and $50+ tiers, scored on fundamentals and on how today's news themes ripple through them.">
 <meta name="theme-color" content="#F2F6F4">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230E9488'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23FFC83D'/%3E%3C/svg%3E">
@@ -45,6 +45,7 @@ a{color:var(--brand)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .logo svg{width:34px;height:34px;flex:none}
 .logo b{font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-.02em}
+.logo .own{color:var(--brand)}
 .stamp{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 var(--up);animation:beat 2s infinite}
 .dot.stale{background:var(--mixed);animation:none}
@@ -266,9 +267,9 @@ footer h4{color:var(--ink);margin:0 0 6px;font-family:var(--display);font-size:1
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="Ripple Radar home">
+    <a class="logo" href="#top" aria-label="Kiru's Ripple Radar home">
       <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#0E9488"/><circle cx="32" cy="32" r="19" fill="none" stroke="#fff" stroke-width="4"/><circle cx="32" cy="32" r="7" fill="#FFC83D"/></svg>
-      <b>Ripple Radar</b>
+      <b><span class="own">Kiru's</span> Ripple Radar</b>
     </a>
     <div class="stamp" id="stamp"><i class="dot stale"></i><span>Loading today's data…</span></div>
     <div class="spacer"></div>
@@ -289,7 +290,7 @@ footer h4{color:var(--ink);margin:0 0 6px;font-family:var(--display);font-size:1
 
     <div class="hero">
       <div>
-        <p class="eyebrow">Daily stock radar · US markets</p>
+        <p class="eyebrow">Stocks for Kiru · Daily US market radar</p>
         <h1>Find the stocks today's <em>news ripples</em> are pushing.</h1>
         <p>Every evening after the close, prices, fundamentals and analyst views get refreshed. Each stock gets a 0–100 setup score, lands in a price tier, and gets nudged up or down by the news themes moving markets right now.</p>
         <div class="tierkey" aria-label="Price tiers">
