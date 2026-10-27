@@ -1,0 +1,117 @@
+{
+  "asOf": "2026-10-26",
+  "themes": [
+    {
+      "id": "oil",
+      "name": "Oil shock",
+      "driver": { "symbol": "CL=F", "label": "WTI crude", "unit": "$/bbl", "scale": 15 },
+      "backdrop": "Crude is trading near $100 (Brent above $115) on U.S.-Iran tension and Houthi attacks on Saudi facilities. Mediation talks can knock it lower fast, so this ripple flips direction with headlines.",
+      "chain": [
+        { "label": "Crude oil", "why": "The starting push. Every stage below reacts to its price.", "effect": "driver", "tickers": [] },
+        { "label": "Oil producers", "why": "Each extra dollar per barrel flows almost straight to profit.", "effect": "up", "tickers": ["XOM", "CVX", "COP", "OXY", "KOS", "WTI"] },
+        { "label": "Drillers & tankers", "why": "High prices pull rigs back to work. Shipping disruption lifts tanker day-rates.", "effect": "up", "tickers": ["RIG", "BORR", "FRO", "DHT", "INSW"] },
+        { "label": "Petrochemicals", "why": "U.S. makers use cheap ethane from natural gas, so pricier oil hurts their overseas rivals more than them.", "effect": "mixed", "tickers": ["LYB", "DOW"] },
+        { "label": "Paint & coatings", "why": "Resins and solvents are oil-derived. Costs jump first and price hikes catch up a quarter or two later, so margins get squeezed in between.", "effect": "down", "tickers": ["SHW", "PPG", "RPM", "AXTA"] },
+        { "label": "Airlines", "why": "Jet fuel is their second-biggest cost, and hedges only soften the blow.", "effect": "down", "tickers": ["DAL", "UAL", "JBLU"] }
+      ],
+      "sensitivity": {
+        "XOM": 1, "CVX": 1, "COP": 1.1, "OXY": 1.2, "KOS": 1.4, "WTI": 1.4,
+        "RIG": 1, "BORR": 1.1, "FRO": 0.9, "DHT": 0.9, "INSW": 0.9,
+        "LYB": 0.3, "DOW": 0.2,
+        "SHW": -0.7, "PPG": -0.8, "RPM": -0.6, "AXTA": -0.8,
+        "DAL": -1, "UAL": -1.1, "JBLU": -1.3
+      }
+    },
+    {
+      "id": "gas",
+      "name": "Gas & LNG build-out",
+      "driver": { "symbol": "NG=F", "label": "Natural gas", "unit": "$/MMBtu", "scale": 20 },
+      "backdrop": "EQT agreed to buy Range Resources in a $50B+ all-stock deal, a bet on long-run gas demand from LNG exports and AI data centers.",
+      "chain": [
+        { "label": "Natural gas", "why": "The starting push.", "effect": "driver", "tickers": [] },
+        { "label": "Gas producers", "why": "Higher gas prices lift Appalachian and Haynesville producers directly.", "effect": "up", "tickers": ["EQT", "AR", "CTRA", "CRK"] },
+        { "label": "LNG exporters", "why": "Long-term contracts make volume the story. Strong global demand supports new terminals.", "effect": "up", "tickers": ["LNG", "NEXT"] },
+        { "label": "Fertilizer & chemicals", "why": "Gas is the main feedstock for nitrogen fertilizer and U.S. ethylene, so pricier gas lifts their costs.", "effect": "down", "tickers": ["CF", "LYB", "DOW"] }
+      ],
+      "sensitivity": {
+        "EQT": 1, "AR": 1.2, "CTRA": 0.8, "CRK": 1.3,
+        "LNG": 0.4, "NEXT": 0.5,
+        "CF": -0.6, "LYB": -0.3, "DOW": -0.3
+      }
+    },
+    {
+      "id": "rates",
+      "name": "5% Treasury world",
+      "driver": { "symbol": "^TNX", "label": "10-yr Treasury yield", "unit": "%", "scale": 6 },
+      "backdrop": "The 10-year yield is hovering near 5% after hot CPI and PPI prints. The Fed meets this week, and futures lean toward a December hike.",
+      "chain": [
+        { "label": "10-yr yield", "why": "The starting push.", "effect": "driver", "tickers": [] },
+        { "label": "Banks & brokers", "why": "They earn more on deposits and cash sweeps when rates stay high.", "effect": "up", "tickers": ["JPM", "BAC", "WFC", "SCHW"] },
+        { "label": "Insurers", "why": "Premiums collected today get invested at higher yields.", "effect": "up", "tickers": ["PGR"] },
+        { "label": "Homebuilders", "why": "Mortgage rates follow the 10-year, which prices buyers out.", "effect": "down", "tickers": ["DHI", "LEN"] },
+        { "label": "Cash-hungry growth", "why": "Companies still burning cash pay more to borrow, and their future profits are worth less today.", "effect": "down", "tickers": ["RIVN", "SOFI", "PLUG"] }
+      ],
+      "sensitivity": {
+        "JPM": 0.6, "BAC": 0.7, "WFC": 0.6, "SCHW": 0.7, "PGR": 0.4,
+        "DHI": -1, "LEN": -1, "RIVN": -0.8, "SOFI": -0.5, "PLUG": -0.6
+      }
+    },
+    {
+      "id": "ai",
+      "name": "AI build-out & power",
+      "driver": { "symbol": "SMH", "label": "Semiconductor ETF", "unit": "$", "scale": 12 },
+      "backdrop": "Anthropic filed for a Nasdaq IPO, and Meta plans a $95B raise for AI infrastructure. At the same time, investors are questioning whether AI capex has peaked, so these names move together, in both directions.",
+      "chain": [
+        { "label": "AI demand", "why": "The starting push, tracked here through chip stocks.", "effect": "driver", "tickers": [] },
+        { "label": "Chips & memory", "why": "First in line for every new data-center dollar.", "effect": "up", "tickers": ["NVDA", "AVGO", "MU"] },
+        { "label": "Optical networking", "why": "GPU clusters need far more fiber links than ordinary servers.", "effect": "up", "tickers": ["LITE", "COHR", "NOK"] },
+        { "label": "Power & cooling gear", "why": "Each AI rack draws 5–10x the power of a normal one.", "effect": "up", "tickers": ["VRT", "ETN", "FIX", "BE", "FCEL"] },
+        { "label": "Power generators", "why": "Data centers sign long contracts for always-on electricity, including nuclear.", "effect": "up", "tickers": ["VST", "CEG", "OKLO", "SMR", "UEC", "UUUU"] },
+        { "label": "AI software small caps", "why": "These ride sentiment more than earnings, so they swing hardest.", "effect": "up", "tickers": ["BBAI", "SOUN"] }
+      ],
+      "sensitivity": {
+        "NVDA": 1.1, "AVGO": 1, "MU": 1.2,
+        "LITE": 1.2, "COHR": 1.1, "NOK": 0.4,
+        "VRT": 1.1, "ETN": 0.6, "FIX": 0.8, "BE": 1, "FCEL": 0.7,
+        "VST": 0.7, "CEG": 0.7, "OKLO": 1.2, "SMR": 1.2, "UEC": 0.6, "UUUU": 0.6,
+        "BBAI": 1.3, "SOUN": 1.3
+      }
+    },
+    {
+      "id": "gold",
+      "name": "Safe-haven gold",
+      "driver": { "symbol": "GC=F", "label": "Gold", "unit": "$/oz", "scale": 8 },
+      "backdrop": "Gold is holding above $4,000/oz on geopolitical stress and inflation worries. Miners' costs barely move with it, so each extra dollar of gold mostly becomes profit.",
+      "chain": [
+        { "label": "Gold price", "why": "The starting push.", "effect": "driver", "tickers": [] },
+        { "label": "Large gold miners", "why": "Steady producers whose margins widen as gold rises.", "effect": "up", "tickers": ["NEM", "AEM", "KGC"] },
+        { "label": "Mid & small miners", "why": "Higher costs mean more leverage to the gold price, in both directions.", "effect": "up", "tickers": ["BTG", "NGD", "IAG", "EQX"] },
+        { "label": "Silver miners", "why": "Silver tends to follow gold, with bigger swings.", "effect": "up", "tickers": ["HL", "CDE"] }
+      ],
+      "sensitivity": {
+        "NEM": 1, "AEM": 1, "KGC": 1.1, "BTG": 1.3, "NGD": 1.4, "IAG": 1.3, "EQX": 1.3, "HL": 1.2, "CDE": 1.3
+      }
+    },
+    {
+      "id": "defense",
+      "name": "Defense & geopolitics",
+      "driver": { "symbol": "ITA", "label": "Aerospace & Defense ETF", "unit": "$", "scale": 8 },
+      "backdrop": "Reports say U.S. forces are ready to strike Iran if talks fail before the midterms. Defense backlogs were already at records.",
+      "chain": [
+        { "label": "Conflict risk", "why": "The starting push, tracked here through the defense ETF.", "effect": "driver", "tickers": [] },
+        { "label": "Defense primes", "why": "Multi-year contracts and record backlogs.", "effect": "up", "tickers": ["LMT", "NOC", "RTX", "GD"] },
+        { "label": "Drones & missiles", "why": "The fastest-growing slice of new orders.", "effect": "up", "tickers": ["KTOS", "AVAV"] }
+      ],
+      "sensitivity": { "LMT": 0.9, "NOC": 0.9, "RTX": 0.8, "GD": 0.8, "KTOS": 1.3, "AVAV": 1.2 }
+    }
+  ],
+  "pulse": [
+    { "symbol": "^GSPC", "label": "S&P 500" },
+    { "symbol": "^IXIC", "label": "Nasdaq" },
+    { "symbol": "CL=F", "label": "Crude" },
+    { "symbol": "GC=F", "label": "Gold" },
+    { "symbol": "^TNX", "label": "10-yr yield" },
+    { "symbol": "^VIX", "label": "VIX" }
+  ],
+  "extraTickers": ["TSLA", "F", "GRAB", "SNAP", "ABEV", "ITUB", "PTON", "LYFT", "AMZN", "MSFT", "GOOGL", "META", "AAPL"]
+}
