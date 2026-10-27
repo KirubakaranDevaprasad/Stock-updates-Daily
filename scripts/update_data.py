@@ -14,7 +14,11 @@ import json
 import math
 import sys
 import time
+import urllib.parse
+import urllib.request
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -88,6 +92,28 @@ def parse_news(items, limit=3):
             when = datetime.fromtimestamp(ts, timezone.utc).isoformat() if ts else None
         if title and url:
             out.append({"title": title, "url": url, "source": src, "at": when})
+        if len(out) >= limit:
+            break
+    return out
+
+
+def fetch_rss(sym, limit=3):
+    """Yahoo's public RSS headline feed: a fallback when yfinance returns no news."""
+    url = "https://feeds.finance.yahoo.com/rss/2.0/headline?" + urllib.parse.urlencode(
+        {"s": sym, "region": "US", "lang": "en-US"})
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (ripple-radar)"})
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        root = ET.fromstring(resp.read())
+    out = []
+    for item in root.findall("./channel/item"):
+        title, link = item.findtext("title"), item.findtext("link")
+        when = item.findtext("pubDate")
+        try:
+            when = parsedate_to_datetime(when).isoformat() if when else None
+        except (TypeError, ValueError):
+            pass
+        if title and link:
+            out.append({"title": title.strip(), "url": link.strip(), "source": "Yahoo Finance", "at": when})
         if len(out) >= limit:
             break
     return out
@@ -235,10 +261,21 @@ def fetch_info(sym):
             break
         except Exception:
             time.sleep(2 * (attempt + 1))
+    news = []
     try:
         news = parse_news(t.news)
     except Exception:
-        news = []
+        pass
+    if not news and hasattr(t, "get_news"):
+        try:
+            news = parse_news(t.get_news(count=5))
+        except Exception:
+            pass
+    if not news:
+        try:
+            news = fetch_rss(sym)
+        except Exception:
+            pass
 
     def p100(k):
         v = num(info.get(k))
@@ -396,7 +433,10 @@ def main():
         closes, _ = h
         pulse.append({**p, "price": r(closes[-1]), "chg1d": r(pct(closes[-1], closes[-2]))})
 
-    market_date = max((d for c, ds in history.values() for d in ds[-1:]), default=None)
+    # Futures trade overnight, so take the session date from the S&P 500 itself.
+    spx = history.get("^GSPC")
+    market_date = spx[1][-1] if spx else max((ds[-1] for _, ds in history.values()), default=None)
+    print(f"Headlines found for {sum(1 for v in infos.values() if v.get('news'))} of {len(infos)} symbols")
     out = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "marketDate": market_date,
