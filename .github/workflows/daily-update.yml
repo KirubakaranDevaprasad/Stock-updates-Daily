@@ -1,0 +1,44 @@
+name: Daily market update
+
+on:
+  schedule:
+    # 22:17 UTC on weekdays, after the U.S. close (6:17 pm ET in summer, 5:17 pm in winter)
+    - cron: "17 22 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Pull prices, fundamentals and headlines
+        run: python scripts/update_data.py
+
+      - name: Commit fresh data
+        run: |
+          git config user.name "ripple-radar-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Daily data: $(date -u +%Y-%m-%d)"
+            git push
+          fi
