@@ -1,0 +1,2 @@
+# Add any extra US tickers here, one per line, to track them and make them pinnable.
+# They are picked up on the next daily run. Lines starting with # are ignored.
